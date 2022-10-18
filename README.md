@@ -1,6 +1,6 @@
 ## What this is
 
-This is a guide, for how I setup my WSL (Windows Subsystem for Linux) 2 as a development backend.
+This is a guide how I setup my WSL (Windows Subsystem for Linux) 2 as a development backend.
 
 ## Why?
 
@@ -67,44 +67,44 @@ The linux system is in many cases much faster and more suitable for many develop
 You have multiple options here, if your IDE / workflow does not support the SSH approach then you can use the virtual network drive to access the project files.
 
 To access Windows files from Linux you can use the auto mount points which are under `/mnt` followed by the drive letter e.g. `/mnt/c/Users/Flo/my-file.txt`
-To access Linux files from Windows you can use the virtual network drive located at `\\wsl$` followed by the installatio name e.g. `\\wsl$\Ubuntu\home\Flo\my-file.txt`
+To access Linux files from Windows you can use the virtual network drive located at `\\wsl$` followed by the installation name e.g. `\\wsl$\Ubuntu\home\Flo\my-file.txt`
 
 A heads up: Those translations of file systems (NTFS <-> ext4) are not without cost or loss of information.
 Only do them sparingly and only when needed.
-For example only do them when you use the IDE to modify a file or want to export a build artifact but *not* with webpack to read and bundle all files from another file systme type.
+For example only do them when you use the IDE to modify a file or want to export a build artifact but *not* with webpack to read and bundle all files from another file system type.
 
 Rule of thumb: Use the file system from the operating system which also runs your build tasks.
 
 ### IDE setup
 
 If your IDE can not use SSH as dev backend then you can just open the network drive as your project directory.
-But be aware that this might be rather slow for integrated language servers (e.g. for TypeScript) only use this approad if you havily profit from the time gained by using Linux to build your project.
+But be aware that this might be rather slow for integrated language servers (e.g. for TypeScript) only use this approach if you heavily profit from the time gained by using Linux to build your project.
 
-You can also use rsync to rsync from `/mtn/Users/<YOUR-WINDOWS-USERNAME>/projects/example/` to `/home/<YOUR-LINUX-USERNAME>/projects/example` and then build from there, to have the benfit of the faster language server and the faster build pipeline.
+You can also use rsync to rsync from `/mtn/Users/<YOUR-WINDOWS-USERNAME>/projects/example/` to `/home/<YOUR-LINUX-USERNAME>/projects/example` and then build from there, to have the benefit of the faster language server and the faster build pipeline.
 
 I used Webstorm as IDE, which supports the SSH backend.
 
 1. Open WebStorm
 2. Select the Remote Development from the possible project sources
-3. Select SSH - New Connection and click on the cogwheele next to the connection dropdown
+3. Select SSH - New Connection and click on the cogwheel next to the connection dropdown
 4. Enter the `Host` and `User` strings you used in the ssh config file
 5. Select OpenSSH config and authentication agent
 6. Click ok and then select the newly created connection then select the `Check Connection and Continue`
 7. Use your terminal SSH session to checkout / create a directory for your project
 8. Use this path for the project directory
-9. The newest WebStorm is automaticly downloaded, installed and started on the (WSL-) Host
+9. The newest WebStorm is automatically downloaded, installed and started on the (WSL-) Host
 
 If everything went as it should you should not be presented with a normal WebStorm IDE windows which is connected to the WSL as a dev backend.
 You can check this by opening a terminal in the WebStorm instance and check if you are on the WSL host.
 
-All Plugins are executed on the Linux system and can therefore nativly interact with other tools, like `git` and `docker`.
+All Plugins are executed on the Linux system and can therefore natively interact with other tools, like `git` and `docker`.
 The latter one is a big plus for my project.
 
 ### Troubleshooting
 
-There are many things which might not work as discribed.
+There are many things which might not work as described.
 I would recommend that you start by checking the installation state of your Windows system, then the WSL abstraction and then the subsystem.
-If thats all in order, then you can continue to debug / reinstall the IDE and then the project / tool configurations.
+If that is all in order, then you can continue to debug / reinstall the IDE and then the project / tool configurations.
 
 You can stop the Linux system *and* the WSL VM by running `wsl --shutdown` after that just run `wsl` to start the default distribution.
 Remember to start the ssh service after each Linux start.
